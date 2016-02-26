@@ -1,10 +1,10 @@
 # base configuration.
 # this needs to be then re-packaged to minimize virtual machine loading time while constructing the various nodes
 
-#execute 'apt update' do
-#  command 'apt-get -q update'
-#  command 'apt-get -q upgrade'
-#end
+
+execute 'apt update' do
+  command 'echo "apt updated"'
+end
 
 include_recipe "java7::default"
 #include_recipe "java8::default"
