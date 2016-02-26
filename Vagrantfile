@@ -3,6 +3,8 @@
 #Berksfile tweak needed per https://github.com/berkshelf/vagrant-berkshelf/issues/237  **/.git
 
 Vagrant.configure(2) do |config|
+
+
   if ARGV[1]=='base'
     config.vm.box = "opscode/temp"
   else
@@ -18,7 +20,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "manos" do | manos |
     manos.vm.host_name            ="manos.calavera.biz"
-    #manos.vm.network              "private_network", ip: "192.168.33.34"  # don't need to specify; we use 127.0.0.1:port for access for this lab
+    manos.vm.network              "private_network", type: "dhcp"  # don't need to specify; we use 127.0.0.1:port for access for this lab
     config.vm.usable_port_range = (8000..8999) # essential for a large lab
     manos.vm.network              "forwarded_port", guest: 22, host: 2234, auto_correct: true
     manos.vm.network              "forwarded_port", guest: 80, host: 8034, auto_correct: true
