@@ -61,14 +61,16 @@ It then repackages it and destroys the Vagrant machine. The remaining 6 VMs all 
 
 The VMs need to be instantiated in a particular order:
 
-1. cerebro1 (Remote git repo)
-1. brazos1 (Slave build environment)
-1. espina1 (Artifactory)
-1. hombros1 (Jenkins)
-1. manos1 (Development environment)
-1. cara1 (Production environment)
+1. cerebro1 (Remote git repo) [10.1.0.10]
+1. brazos1 (Slave build environment) [10.1.0.11]
+1. espina1 (Artifactory) [10.1.0.12]
+1. hombros1 (Jenkins) [10.1.0.13]
+1. manos1 (Development environment) [10.1.0.14]
+1. cara1 (Production environment) [10.1.0.15]
 
 Any other order will likely result in errors and a "cluster" in another sense of that word.
+
+IP addresses for all machines are defined in /cookbooks/base/files/calaverahosts
 
 ## Issues
 
@@ -140,7 +142,7 @@ If the console output seems to have gone without a hitch, go first to Jenkins. A
 
 To check all this out, first go to:
 
-http://192.168.33.34:8080/MainServlet
+http://10.1.0.14:8080/MainServlet
 
 This is the developer instance of Tomcat. You should see the Calavera message there.
 
@@ -148,7 +150,7 @@ This is the developer instance of Tomcat. You should see the Calavera message th
 
 Then, go to Jenkins.
 
-http://192.168.33.33:8080
+http://10.1.0.13:8080
 
 You should see a first successful build:
 ![](img/JenkinsSuccess.png)
@@ -157,7 +159,7 @@ You should see a first successful build:
 
 Finally, if you go to:
 
-http://192.168.33.32:8081/artifactory/webapp/home.html
+http://10.1.0.12:8081/artifactory/webapp/home.html
 
 you will see that Artifactory is now "happily serving 2 artifacts." Hooray! Click on the "Artifacts" tab:
 
@@ -177,7 +179,7 @@ Bringing up cara1 is a little anticlimactic.
 
 Assuming everything previously went well, chef will pull the .jar and .xml file from Artifactory on espina and deploy and restart Tomcat. You can go to:
 
-http://192.168.33.35:8080/MainServlet
+http://10.1.0.15:8080/MainServlet
 
 and should see:
 
